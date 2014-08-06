@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>81B23C7C-7254-4DAB-96D9-C87346C18B25</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SGVAttributedNavigationBarTitle</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6AA510A1-E373-4F37-AA9A-7F6AE000E575</key>
+		<string>ssh://github.com/sanekgusev/SGVAttributedNavigationBarTitle.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SGVAttributedNavigationBarTitle.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6AA510A1-E373-4F37-AA9A-7F6AE000E575</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/sanekgusev/SGVAttributedNavigationBarTitle.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6AA510A1-E373-4F37-AA9A-7F6AE000E575</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6AA510A1-E373-4F37-AA9A-7F6AE000E575</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SGVAttributedNavigationBarTitle</string>
+		</dict>
+	</array>
+</dict>
+</plist>
