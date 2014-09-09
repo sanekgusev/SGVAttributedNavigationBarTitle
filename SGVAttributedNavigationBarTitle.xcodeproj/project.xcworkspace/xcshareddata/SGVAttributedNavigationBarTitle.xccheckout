@@ -10,29 +10,29 @@
 	<string>SGVAttributedNavigationBarTitle</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>6AA510A1-E373-4F37-AA9A-7F6AE000E575</key>
+		<key>200FCC7D7D6E0665F916AFA78BC1CEF71D117BAF</key>
 		<string>ssh://github.com/sanekgusev/SGVAttributedNavigationBarTitle.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SGVAttributedNavigationBarTitle.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>6AA510A1-E373-4F37-AA9A-7F6AE000E575</key>
+		<key>200FCC7D7D6E0665F916AFA78BC1CEF71D117BAF</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/sanekgusev/SGVAttributedNavigationBarTitle.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6AA510A1-E373-4F37-AA9A-7F6AE000E575</string>
+	<string>200FCC7D7D6E0665F916AFA78BC1CEF71D117BAF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>6AA510A1-E373-4F37-AA9A-7F6AE000E575</string>
+			<string>200FCC7D7D6E0665F916AFA78BC1CEF71D117BAF</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SGVAttributedNavigationBarTitle</string>
 		</dict>

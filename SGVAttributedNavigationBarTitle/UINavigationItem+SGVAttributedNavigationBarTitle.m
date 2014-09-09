@@ -24,7 +24,8 @@ static void const * const kAttributedTitleKey = &kAttributedTitleKey;
 }
 
 - (NSAttributedString *)sgv_attributedTitle {
-    return objc_getAssociatedObject(self, kAttributedTitleKey);
+    NSAttributedString *storedAttributedTitle = objc_getAssociatedObject(self, kAttributedTitleKey);
+    return storedAttributedTitle;
 }
 
 @end

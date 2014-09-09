@@ -11,5 +11,6 @@
 @interface UINavigationBar (SGVAttributedNavigationBarTitle)
 
 @property (nonatomic, setter = sgv_setAttributedTitleEnabled:) BOOL sgv_attributedTitleEnabled;
+//@property (nonatomic, readonly) NSDictionary *sgv_defaultAttributedTitleAttributes;
 
 @end

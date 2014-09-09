@@ -6,16 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428934952.224411"
+            filePath = "SGVAttributedNavigationBarTitle/UINavigationController+SGVAttributedNavigationBarTitle.m"
+            timestampString = "431412062.934488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "-sgv_titleLabelInView:"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "-sgv_setAttributedTitleEnabled:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SGVAttributedNavigationBarTitle/SGVClassModificationHelper.m"
+            timestampString = "431497512.281614"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "+createdOrExistingModifiedClassForClass:withSuffix:withMethodsFromClass:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
+            timestampString = "431523116.617972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "@implementation SGVAttributedTitleNavigationBar"
-            landmarkType = "3">
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-pushNavigationItem:animated:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
+            timestampString = "431523116.617972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "@implementation SGVAttributedTitleNavigationBar"
-            landmarkType = "3">
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-popNavigationItemAnimated:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,60 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
+            timestampString = "431523116.617972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "@implementation SGVAttributedTitleNavigationBar"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "@implementation SGVAttributedTitleNavigationBar"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "@implementation SGVAttributedTitleNavigationBar"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SGVAttributedNavigationBarTitle/SGVAttributedTitleNavigationBar.m"
-            timestampString = "428939928.421958"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-sgv_tryApplyAttributedTitle"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "-setItems:animated:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,67 +7,49 @@
 //
 
 #import "UINavigationBar+SGVAttributedNavigationBarTitle.h"
+#import "SGVAttributedTitleNavigationBar.h"
+#import "SGVClassModificationHelper.h"
 #import <objc/runtime.h>
 
 static NSString * const kModifiedClassSuffix = @"_SGVAttributedNavigationBarTitle";
 
-static NSMutableDictionary *kClassToModifiedClassDictionary = nil;
-static NSMutableSet *kModifiedClasses = nil;
-
 @implementation UINavigationBar (SGVAttributedNavigationBarTitle)
 
 @dynamic sgv_attributedTitleEnabled;
+//@dynamic sgv_defaultAttributedTitleAttributes;
 
 #pragma mark - Properties
 
-- (void)sgv_setAttributedTitleEnabled:(BOOL)sgv_attributedTitleEnabled {
-    if ([self sgv_attributedTitleEnabled]) {
+- (void)sgv_setAttributedTitleEnabled:(BOOL)attributedTitleEnabled {
+    if ([self sgv_attributedTitleEnabled] == !!attributedTitleEnabled) {
         return;
     }
-    Class modifiedClass = [UINavigationBar sgv_classToModifiedClassDictionary][(id<NSCopying>)object_getClass(self)];
-    if (!modifiedClass) {
-        modifiedClass = [UINavigationBar sgv_createModifiedClass];
+    Class __unsafe_unretained classToBeSet;
+    Class __unsafe_unretained currentClass = object_getClass(self);
+    if (attributedTitleEnabled) {
+        classToBeSet = [SGVClassModificationHelper createdOrExistingModifiedClassForClass:currentClass
+                                                                               withSuffix:kModifiedClassSuffix
+                                                                     withMethodsFromClass:[SGVAttributedTitleNavigationBar class]];
     }
-    object_setClass(self, modifiedClass);
+    else {
+        [SGVClassModificationHelper isClass:currentClass
+                         modifiedWithSuffix:kModifiedClassSuffix
+                              originalClass:&classToBeSet];
+        [((SGVAttributedTitleNavigationBar *)self) sgv_tryRestoreTitleLabelAppearance];
+    }
+    object_setClass(self, classToBeSet);
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 - (BOOL)sgv_attributedTitleEnabled {
-    return [kModifiedClasses containsObject:(id)object_getClass(self)];
+    return [SGVClassModificationHelper isClass:object_getClass(self)
+                            modifiedWithSuffix:kModifiedClassSuffix
+                                 originalClass:NULL];
 }
 
-#pragma mark - Private
-
-+ (NSMutableDictionary *)sgv_classToModifiedClassDictionary {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        kClassToModifiedClassDictionary = [NSMutableDictionary new];
-    });
-    return kClassToModifiedClassDictionary;
-}
-
-+ (NSMutableSet *)sgv_modifiedClasses {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        kModifiedClasses = [NSMutableSet new];
-    });
-    return kModifiedClasses;
-}
-
-+ (Class)sgv_createModifiedClass {
-    Class originalClass = object_getClass(self);
-    const char *modifiedClassName = [[@(class_getName(originalClass)) stringByAppendingString:kModifiedClassSuffix] UTF8String];
-    Class modifiedClass = objc_allocateClassPair(originalClass,
-                                                 modifiedClassName,
-                                                 0);
-
-    // TODO: add methods
-
-    objc_registerClassPair(modifiedClass);
-
-    [UINavigationBar sgv_classToModifiedClassDictionary][(id<NSCopying>)originalClass] = modifiedClass;
-    [[UINavigationBar sgv_modifiedClasses] addObject:modifiedClass];
-
-    return modifiedClass;
-}
+//- (NSDictionary *)sgv_defaultAttributedTitleAttributes {
+//    
+//}
 
 @end

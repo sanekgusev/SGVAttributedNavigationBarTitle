@@ -10,4 +10,6 @@
 
 @interface SGVAttributedTitleNavigationBar : UINavigationBar
 
+- (BOOL)sgv_tryRestoreTitleLabelAppearance;
+
 @end

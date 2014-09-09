@@ -9,31 +9,28 @@
 #import "SGVAttributedTitleNavigationBar.h"
 #import "UINavigationItem+SGVAttributedNavigationBarTitle.h"
 #import <objc/runtime.h>
+#import "SGVAttributedTextOnlyLabel.h"
+#import "SGVClassModificationHelper.h"
 
-static void const * const kTopNavigationItemKey = &kTopNavigationItemKey;
-static void const * const kTitleLabelKey = &kTitleLabelKey;
+static void const * const kModifiedTitleLabelKey = &kModifiedTitleLabelKey;
+static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigationBarTitle";
+
+@interface SGVAttributedTitleNavigationBar()
+
+@property (nonatomic, strong, setter=sgv_setModifiedTitleLabel:) UILabel *sgv_modifiedTitleLabel;
+
+@end
 
 @implementation SGVAttributedTitleNavigationBar
 
 #pragma mark - Private
 
--(void)sgv_setTopNavigationItem:(UINavigationItem *)navigationItem {
-    objc_setAssociatedObject(self, kTopNavigationItemKey, navigationItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)sgv_setModifiedTitleLabel:(UILabel *)titleLabel {
+    objc_setAssociatedObject(self, kModifiedTitleLabelKey, titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UINavigationItem *)sgv_topNavigationItem {
-    return objc_getAssociatedObject(self, kTopNavigationItemKey);
-}
-
-- (void)sgv_setTitleLabel:(UILabel *)titleLabel {
-    objc_setAssociatedObject(self, kTitleLabelKey, titleLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (UILabel *)sgv_titleLabel {
-    UILabel *titleLabel = objc_getAssociatedObject(self, kTitleLabelKey);
-    if (!titleLabel) {
-        titleLabel = [self sgv_titleLabelFromSubviews];
-    }
+- (UILabel *)sgv_modifiedTitleLabel {
+    UILabel *titleLabel = objc_getAssociatedObject(self, kModifiedTitleLabelKey);
     return titleLabel;
 }
 
@@ -47,13 +44,11 @@ static void const * const kTitleLabelKey = &kTitleLabelKey;
         UIView *subview = obj;
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel *label = (UILabel *)subview;
-            CGPoint labelCenterInBounds = [self convertPoint:label.center fromView:[label superview]];
-            CGRect bounds = sel
-            if (fabs(.x - CGRectGetMidX([self bounds])) < 2.0) {
+            if ([label.text isEqualToString:self.topItem.title]) {
                 titleLabel = label;
             }
         }
-        else {
+        if (!titleLabel) {
             titleLabel = [self sgv_titleLabelInView:subview];
         }
         if (titleLabel) {
@@ -64,31 +59,74 @@ static void const * const kTitleLabelKey = &kTitleLabelKey;
 }
 
 - (BOOL)sgv_tryApplyAttributedTitle {
-    UILabel *titleLabel = [self sgv_titleLabel];
-    NSAttributedString *topNavigationItemAttributedTitle = [self sgv_topNavigationItem].sgv_attributedTitle;
-    if (titleLabel && topNavigationItemAttributedTitle) {
-        titleLabel.attributedText = topNavigationItemAttributedTitle;
+    NSAttributedString *topNavigationItemAttributedTitle = [self topItem].sgv_attributedTitle;
+    if (!topNavigationItemAttributedTitle) {
+        return NO;
+    }
+    UILabel *titleLabel = [self sgv_titleLabelFromSubviews];
+    if (!titleLabel) {
+        return NO;
+    }
+    [self sgv_setModifiedTitleLabel:titleLabel];
+    Class __unsafe_unretained titleLabelClass = object_getClass(titleLabel);
+    if (![SGVClassModificationHelper isClass:titleLabelClass
+                             modifiedWithSuffix:kModifiedTitleLabelClassSuffix
+                                  originalClass:NULL]) {
+        Class __unsafe_unretained modifiedTitleLabelClass =
+        [SGVClassModificationHelper createdOrExistingModifiedClassForClass:titleLabelClass
+                                                                withSuffix:kModifiedTitleLabelClassSuffix
+                                                      withMethodsFromClass:[SGVAttributedTextOnlyLabel class]];
+        object_setClass(titleLabel, modifiedTitleLabelClass);
+    }
+    titleLabel.text = nil;
+    titleLabel.attributedText = topNavigationItemAttributedTitle;
+    return YES;
+}
+
+- (BOOL)sgv_tryRestoreTitleLabelClass {
+    UILabel *titleLabel = [self sgv_modifiedTitleLabel];
+    if (!titleLabel) {
+        return NO;
+    }
+    Class __unsafe_unretained titleLabelClass = object_getClass(titleLabel);
+    Class __unsafe_unretained originalClass;
+    if ([SGVClassModificationHelper isClass:titleLabelClass
+                         modifiedWithSuffix:kModifiedTitleLabelClassSuffix
+                              originalClass:&originalClass]) {
+        object_setClass(titleLabel, originalClass);
         return YES;
     }
     return NO;
 }
 
-- (void)sgv_clearTitleLabelReferenceAndSetTopNavigationItem:(UINavigationItem *)topNavigationItem {
-    [self sgv_setTitleLabel:nil];
-    [self sgv_setTopNavigationItem:topNavigationItem];
+#pragma mark - Public
+
+- (BOOL)sgv_tryRestoreTitleLabelAppearance {
+    BOOL restored = [self sgv_tryRestoreTitleLabelClass];
+//    UILabel *titleLabel = [self sgv_titleLabel];
+//    titleLabel.text = [titleLabel.attributedText string];
+    [self sgv_setModifiedTitleLabel:nil];
+    return restored;
+}
+
+#pragma mark - NSObject
+
+- (Class)class {
+    return [[super class] superclass];
 }
 
 #pragma mark - UIView
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if ([self sgv_tryApplyAttributedTitle]) {
-        [super layoutSubviews];
-    }
-}
+//- (void)layoutSubviews {
+//    [super layoutSubviews];
+//    if ([self sgv_tryApplyAttributedTitle]) {
+//        [super layoutSubviews];
+//    }
+//}
 
 - (void)didAddSubview:(UIView *)subview {
     [super didAddSubview:subview];
+    [self sgv_tryRestoreTitleLabelAppearance];
     [self sgv_tryApplyAttributedTitle];
 }
 
@@ -96,23 +134,21 @@ static void const * const kTitleLabelKey = &kTitleLabelKey;
 
 - (void)pushNavigationItem:(UINavigationItem *)item animated:(BOOL)animated {
     [super pushNavigationItem:item animated:animated];
-    [self sgv_clearTitleLabelReferenceAndSetTopNavigationItem:item];
+    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryApplyAttributedTitle];
 }
 
 - (UINavigationItem *)popNavigationItemAnimated:(BOOL)animated {
     UINavigationItem *popped = [super popNavigationItemAnimated:animated];
-    [self sgv_clearTitleLabelReferenceAndSetTopNavigationItem:[self.items lastObject]];
+    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryApplyAttributedTitle];
     return popped;
 }
 
 - (void)setItems:(NSArray *)items animated:(BOOL)animated {
     [super setItems:items animated:animated];
-    [self sgv_clearTitleLabelReferenceAndSetTopNavigationItem:[items lastObject]];
-}
-
-- (void)setItems:(NSArray *)items {
-    [super setItems:items];
-    [self sgv_clearTitleLabelReferenceAndSetTopNavigationItem:[items lastObject]];
+    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryApplyAttributedTitle];
 }
 
 @end

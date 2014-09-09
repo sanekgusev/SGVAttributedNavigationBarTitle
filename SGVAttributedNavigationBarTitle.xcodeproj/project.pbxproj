@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB44D2C819B5C14B0051D2B6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBFC7EA019909902003293E7 /* Images.xcassets */; };
+		BB74F05919B8162D005706E6 /* SGVMixinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BB74F05819B8162D005706E6 /* SGVMixinHelper.m */; };
+		BB74F05C19B81A6B005706E6 /* SGVClassModificationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BB74F05B19B81A6B005706E6 /* SGVClassModificationHelper.m */; };
+		BB764EA319B6C270008BA36D /* SGVAttributedTextOnlyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB764EA219B6C270008BA36D /* SGVAttributedTextOnlyLabel.m */; };
 		BBC6AD4E1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC6AD4D1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.m */; };
 		BBFC7E8619909902003293E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC7E8519909902003293E7 /* Foundation.framework */; };
 		BBFC7E8819909902003293E7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC7E8719909902003293E7 /* CoreGraphics.framework */; };
@@ -17,7 +21,6 @@
 		BBFC7E9919909902003293E7 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFC7E9719909902003293E7 /* Main_iPhone.storyboard */; };
 		BBFC7E9C19909902003293E7 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFC7E9A19909902003293E7 /* Main_iPad.storyboard */; };
 		BBFC7E9F19909902003293E7 /* SGVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFC7E9E19909902003293E7 /* SGVViewController.m */; };
-		BBFC7EA119909902003293E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBFC7EA019909902003293E7 /* Images.xcassets */; };
 		BBFC7EA819909902003293E7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC7EA719909902003293E7 /* XCTest.framework */; };
 		BBFC7EA919909902003293E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC7E8519909902003293E7 /* Foundation.framework */; };
 		BBFC7EAA19909902003293E7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC7E8919909902003293E7 /* UIKit.framework */; };
@@ -38,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB74F05719B8162D005706E6 /* SGVMixinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGVMixinHelper.h; sourceTree = "<group>"; };
+		BB74F05819B8162D005706E6 /* SGVMixinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGVMixinHelper.m; sourceTree = "<group>"; };
+		BB74F05A19B81A6B005706E6 /* SGVClassModificationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGVClassModificationHelper.h; sourceTree = "<group>"; };
+		BB74F05B19B81A6B005706E6 /* SGVClassModificationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGVClassModificationHelper.m; sourceTree = "<group>"; };
+		BB764EA119B6C270008BA36D /* SGVAttributedTextOnlyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGVAttributedTextOnlyLabel.h; sourceTree = "<group>"; };
+		BB764EA219B6C270008BA36D /* SGVAttributedTextOnlyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGVAttributedTextOnlyLabel.m; sourceTree = "<group>"; };
 		BBC6AD4C1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGVAttributedTitleNavigationBar.h; sourceTree = "<group>"; };
 		BBC6AD4D1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGVAttributedTitleNavigationBar.m; sourceTree = "<group>"; };
 		BBFC7E8219909902003293E7 /* SGVAttributedNavigationBarTitle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGVAttributedNavigationBarTitle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +146,12 @@
 				BBFC7EC119909951003293E7 /* UINavigationBar+SGVAttributedNavigationBarTitle.m */,
 				BBC6AD4C1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.h */,
 				BBC6AD4D1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.m */,
+				BB764EA119B6C270008BA36D /* SGVAttributedTextOnlyLabel.h */,
+				BB764EA219B6C270008BA36D /* SGVAttributedTextOnlyLabel.m */,
+				BB74F05719B8162D005706E6 /* SGVMixinHelper.h */,
+				BB74F05819B8162D005706E6 /* SGVMixinHelper.m */,
+				BB74F05A19B81A6B005706E6 /* SGVClassModificationHelper.h */,
+				BB74F05B19B81A6B005706E6 /* SGVClassModificationHelper.m */,
 			);
 			path = SGVAttributedNavigationBarTitle;
 			sourceTree = "<group>";
@@ -248,8 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBFC7E9C19909902003293E7 /* Main_iPad.storyboard in Resources */,
-				BBFC7EA119909902003293E7 /* Images.xcassets in Resources */,
 				BBFC7E9919909902003293E7 /* Main_iPhone.storyboard in Resources */,
+				BB44D2C819B5C14B0051D2B6 /* Images.xcassets in Resources */,
 				BBFC7E9019909902003293E7 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,8 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB74F05919B8162D005706E6 /* SGVMixinHelper.m in Sources */,
 				BBFC7EBF1990992E003293E7 /* UINavigationItem+SGVAttributedNavigationBarTitle.m in Sources */,
+				BB74F05C19B81A6B005706E6 /* SGVClassModificationHelper.m in Sources */,
 				BBFC7E9219909902003293E7 /* main.m in Sources */,
+				BB764EA319B6C270008BA36D /* SGVAttributedTextOnlyLabel.m in Sources */,
 				BBFC7E9F19909902003293E7 /* SGVViewController.m in Sources */,
 				BBC6AD4E1990DAC2009CFC8E /* SGVAttributedTitleNavigationBar.m in Sources */,
 				BBFC7E9619909902003293E7 /* SGVAppDelegate.m in Sources */,
