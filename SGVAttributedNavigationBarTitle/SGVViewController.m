@@ -66,5 +66,8 @@
                                                                                                                                            size:17.0f]}];
     self.navigationItem.sgv_attributedTitle = attributedTitle;
 }
+- (IBAction)nilAction {
+    self.navigationItem.sgv_attributedTitle = nil;
+}
 
 @end

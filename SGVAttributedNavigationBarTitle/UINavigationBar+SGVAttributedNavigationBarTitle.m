@@ -27,19 +27,25 @@ static NSString * const kModifiedClassSuffix = @"_SGVAttributedNavigationBarTitl
     Class __unsafe_unretained classToBeSet;
     Class __unsafe_unretained currentClass = object_getClass(self);
     if (attributedTitleEnabled) {
+        NSCAssert(![SGVClassModificationHelper isClass:currentClass
+                                    modifiedWithSuffix:kModifiedClassSuffix
+                                         originalClass:NULL], @"Class should not already be modified");
         classToBeSet = [SGVClassModificationHelper createdOrExistingModifiedClassForClass:currentClass
                                                                                withSuffix:kModifiedClassSuffix
                                                                      withMethodsFromClass:[SGVAttributedTitleNavigationBar class]];
     }
     else {
-        [SGVClassModificationHelper isClass:currentClass
-                         modifiedWithSuffix:kModifiedClassSuffix
-                              originalClass:&classToBeSet];
-        [((SGVAttributedTitleNavigationBar *)self) sgv_tryRestoreTitleLabelAppearance];
+        BOOL __unused modified = [SGVClassModificationHelper isClass:currentClass
+                                         modifiedWithSuffix:kModifiedClassSuffix
+                                              originalClass:&classToBeSet];
+        NSCAssert(modified, @"Class should be modified");
+        [((SGVAttributedTitleNavigationBar *)self) sgv_tryRestoreTitle];
     }
     object_setClass(self, classToBeSet);
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    if (attributedTitleEnabled) {
+        SGVAttributedTitleNavigationBar *attributedTitleNavigationBar = (SGVAttributedTitleNavigationBar *)self;
+        [attributedTitleNavigationBar sgv_tryApplyAttributedTitle];
+    }
 }
 
 - (BOOL)sgv_attributedTitleEnabled {

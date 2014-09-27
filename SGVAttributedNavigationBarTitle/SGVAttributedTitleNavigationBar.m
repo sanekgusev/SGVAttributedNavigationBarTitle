@@ -15,7 +15,7 @@
 static void const * const kModifiedTitleLabelKey = &kModifiedTitleLabelKey;
 static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigationBarTitle";
 
-@interface SGVAttributedTitleNavigationBar()
+@interface SGVAttributedTitleNavigationBar()<SGVAttributedTextOnlyLabelDelegate>
 
 @property (nonatomic, strong, setter=sgv_setModifiedTitleLabel:) UILabel *sgv_modifiedTitleLabel;
 
@@ -58,6 +58,14 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
     return titleLabel;
 }
 
+#pragma mark - SGVAttributedTextOnlyLabelDelegate
+
+- (NSAttributedString *)sgv_attributedTextForAttributedTextOnlyLabel:(SGVAttributedTextOnlyLabel *)label {
+    return [self topItem].sgv_attributedTitle;
+}
+
+#pragma mark - Public
+
 - (BOOL)sgv_tryApplyAttributedTitle {
     NSAttributedString *topNavigationItemAttributedTitle = [self topItem].sgv_attributedTitle;
     if (!topNavigationItemAttributedTitle) {
@@ -70,43 +78,39 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
     [self sgv_setModifiedTitleLabel:titleLabel];
     Class __unsafe_unretained titleLabelClass = object_getClass(titleLabel);
     if (![SGVClassModificationHelper isClass:titleLabelClass
-                             modifiedWithSuffix:kModifiedTitleLabelClassSuffix
-                                  originalClass:NULL]) {
+                          modifiedWithSuffix:kModifiedTitleLabelClassSuffix
+                               originalClass:NULL]) {
         Class __unsafe_unretained modifiedTitleLabelClass =
         [SGVClassModificationHelper createdOrExistingModifiedClassForClass:titleLabelClass
                                                                 withSuffix:kModifiedTitleLabelClassSuffix
                                                       withMethodsFromClass:[SGVAttributedTextOnlyLabel class]];
         object_setClass(titleLabel, modifiedTitleLabelClass);
+        SGVAttributedTextOnlyLabel *attributedTextOnlyLabel = (SGVAttributedTextOnlyLabel *)titleLabel;
+        attributedTextOnlyLabel.sgv_delegate = self;
+        [attributedTextOnlyLabel sgv_saveTextParameters];
     }
-    titleLabel.text = nil;
     titleLabel.attributedText = topNavigationItemAttributedTitle;
     return YES;
 }
 
-- (BOOL)sgv_tryRestoreTitleLabelClass {
+- (BOOL)sgv_tryRestoreTitle {
     UILabel *titleLabel = [self sgv_modifiedTitleLabel];
     if (!titleLabel) {
         return NO;
     }
+    [self sgv_setModifiedTitleLabel:nil];
     Class __unsafe_unretained titleLabelClass = object_getClass(titleLabel);
     Class __unsafe_unretained originalClass;
     if ([SGVClassModificationHelper isClass:titleLabelClass
                          modifiedWithSuffix:kModifiedTitleLabelClassSuffix
                               originalClass:&originalClass]) {
+        SGVAttributedTextOnlyLabel *attributedTextOnlyLabel = (SGVAttributedTextOnlyLabel *)titleLabel;
+        attributedTextOnlyLabel.sgv_delegate = nil;
+        [attributedTextOnlyLabel sgv_restoreTextParameters];
         object_setClass(titleLabel, originalClass);
         return YES;
     }
     return NO;
-}
-
-#pragma mark - Public
-
-- (BOOL)sgv_tryRestoreTitleLabelAppearance {
-    BOOL restored = [self sgv_tryRestoreTitleLabelClass];
-//    UILabel *titleLabel = [self sgv_titleLabel];
-//    titleLabel.text = [titleLabel.attributedText string];
-    [self sgv_setModifiedTitleLabel:nil];
-    return restored;
 }
 
 #pragma mark - NSObject
@@ -117,16 +121,9 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
 
 #pragma mark - UIView
 
-//- (void)layoutSubviews {
-//    [super layoutSubviews];
-//    if ([self sgv_tryApplyAttributedTitle]) {
-//        [super layoutSubviews];
-//    }
-//}
-
 - (void)didAddSubview:(UIView *)subview {
     [super didAddSubview:subview];
-    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryRestoreTitle];
     [self sgv_tryApplyAttributedTitle];
 }
 
@@ -134,20 +131,20 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
 
 - (void)pushNavigationItem:(UINavigationItem *)item animated:(BOOL)animated {
     [super pushNavigationItem:item animated:animated];
-    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryRestoreTitle];
     [self sgv_tryApplyAttributedTitle];
 }
 
 - (UINavigationItem *)popNavigationItemAnimated:(BOOL)animated {
     UINavigationItem *popped = [super popNavigationItemAnimated:animated];
-    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryRestoreTitle];
     [self sgv_tryApplyAttributedTitle];
     return popped;
 }
 
 - (void)setItems:(NSArray *)items animated:(BOOL)animated {
     [super setItems:items animated:animated];
-    [self sgv_tryRestoreTitleLabelAppearance];
+    [self sgv_tryRestoreTitle];
     [self sgv_tryApplyAttributedTitle];
 }
 
