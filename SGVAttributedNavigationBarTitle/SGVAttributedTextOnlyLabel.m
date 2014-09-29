@@ -37,26 +37,6 @@ static void const * const kLineBreakModeKey = &kLineBreakModeKey;
     return [[super class] superclass];
 }
 
-#pragma mark - UIView
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-}
-
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:bounds];
-}
-
-- (CGSize)sizeThatFits:(CGSize)size {
-    CGSize superSize = [super sizeThatFits:size];
-    return superSize;
-}
-
-- (CGSize)intrinsicContentSize {
-    CGSize superIntrinsicSize = [super intrinsicContentSize];
-    return superIntrinsicSize;
-}
-
 #pragma mark - UILabel
 
 - (void)setText:(NSString *)text {

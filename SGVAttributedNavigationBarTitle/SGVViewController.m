@@ -60,10 +60,10 @@
     self.navigationItem.sgv_attributedTitle = attributedTitle;
 }
 - (IBAction)pinkAction {
-    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"Pink Georgia"
+    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"Big Pink Georgia"
                                                                                         attributes:@{NSForegroundColorAttributeName : [UIColor purpleColor],
                                                                                                      NSFontAttributeName : [UIFont fontWithName:@"Georgia"
-                                                                                                                                           size:17.0f]}];
+                                                                                                                                           size:20.0f]}];
     self.navigationItem.sgv_attributedTitle = attributedTitle;
 }
 - (IBAction)nilAction {
