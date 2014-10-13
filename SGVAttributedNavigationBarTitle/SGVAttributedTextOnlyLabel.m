@@ -37,6 +37,24 @@ static void const * const kLineBreakModeKey = &kLineBreakModeKey;
     return [[super class] superclass];
 }
 
+#pragma mark - UIView
+
+- (void)setFrame:(CGRect)frame {
+    CGSize sizeThatFits = [self sizeThatFits:frame.size];
+    CGFloat widthDiff = sizeThatFits.width - frame.size.width;
+    CGFloat halfDiff = widthDiff / 2.0f;
+    frame.origin.x -= halfDiff;
+    frame.size.width += widthDiff;
+    [super setFrame:CGRectIntegral(frame)];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    CGSize sizeThatFits = [self sizeThatFits:bounds.size];
+    CGFloat widthDiff = sizeThatFits.width - bounds.size.width;
+    bounds.size.width += widthDiff;
+    [super setBounds:CGRectIntegral(bounds)];
+}
+
 #pragma mark - UILabel
 
 - (void)setText:(NSString *)text {
