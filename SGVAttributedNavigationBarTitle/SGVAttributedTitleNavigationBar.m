@@ -34,7 +34,6 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
     return titleLabel;
 }
 
-// TODO: also need to grab title label's superview to hook into its layoutSubviews
 - (UILabel *)sgv_titleLabelFromSubviews {
     return [self sgv_titleLabelInView:self];
 }

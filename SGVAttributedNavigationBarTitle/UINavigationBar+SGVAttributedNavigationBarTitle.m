@@ -16,7 +16,6 @@ static NSString * const kModifiedClassSuffix = @"_SGVAttributedNavigationBarTitl
 @implementation UINavigationBar (SGVAttributedNavigationBarTitle)
 
 @dynamic sgv_attributedTitleEnabled;
-//@dynamic sgv_defaultAttributedTitleAttributes;
 
 #pragma mark - Properties
 
@@ -53,9 +52,5 @@ static NSString * const kModifiedClassSuffix = @"_SGVAttributedNavigationBarTitl
                             modifiedWithSuffix:kModifiedClassSuffix
                                  originalClass:NULL];
 }
-
-//- (NSDictionary *)sgv_defaultAttributedTitleAttributes {
-//    
-//}
 
 @end
