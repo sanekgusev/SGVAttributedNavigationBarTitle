@@ -90,7 +90,8 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
         [attributedTextOnlyLabel sgv_saveTextParameters];
     }
     titleLabel.attributedText = topNavigationItemAttributedTitle;
-    [titleLabel sizeToFit];
+    [titleLabel.superview setNeedsLayout];
+    [titleLabel.superview layoutIfNeeded];
     return YES;
 }
 
@@ -108,9 +109,9 @@ static NSString * const kModifiedTitleLabelClassSuffix = @"_SGVAttributedNavigat
         SGVAttributedTextOnlyLabel *attributedTextOnlyLabel = (SGVAttributedTextOnlyLabel *)titleLabel;
         attributedTextOnlyLabel.sgv_delegate = nil;
         [attributedTextOnlyLabel sgv_restoreTextParameters];
-        object_setClass(titleLabel, originalClass);
         [titleLabel.superview setNeedsLayout];
         [titleLabel.superview layoutIfNeeded];
+        object_setClass(titleLabel, originalClass);
         return YES;
     }
     return NO;

@@ -12,8 +12,8 @@
 @implementation SGVMixinHelper
 
 + (Class)classWithName:(NSString *)className
-    createdByInheritingFromClass:(Class __unsafe_unretained)parent
-    andMixingInMethodsFromClass:(Class __unsafe_unretained)anotherClass {
+createdByInheritingFromClass:(Class __unsafe_unretained)parent
+andMixingInMethodsFromClass:(Class __unsafe_unretained)anotherClass {
     NSCParameterAssert(className);
     NSCParameterAssert(parent);
     NSCParameterAssert(anotherClass);
@@ -21,23 +21,35 @@
         return nil;
     }
     Class __unsafe_unretained anotherClassSuperclass = class_getSuperclass(anotherClass);
-    NSCAssert([parent isSubclassOfClass:anotherClassSuperclass], @"parent class should be the subclass of anotherClass' superclass");
+    if (![parent isSubclassOfClass:anotherClassSuperclass]) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"parent class should be the subclass of anotherClass' superclass"];
+    }
     Class __unsafe_unretained newClass = objc_allocateClassPair(parent,
                                                                 [className UTF8String],
                                                                 0);
     if (!newClass) {
-        return nil;
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"objc_allocateClassPair() failed, class already exists?"];
+    }
+    
+    unsigned int ivarsCount = 0;
+    Ivar *ivars = class_copyIvarList(anotherClass, &ivarsCount);
+    free(ivars);
+    if (ivarsCount > 0) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"mixing in classes with ivars is not supported."];
     }
     
     unsigned int methodsCount = 0;
     Method *methods = class_copyMethodList(anotherClass,
                                            &methodsCount);
-    for (int i = 0; i < methodsCount; i++) {
+    for (unsigned int i = 0; i < methodsCount; i++) {
         Method method = methods[i];
-        BOOL added = class_addMethod(newClass,
-                                     method_getName(method),
-                                     method_getImplementation(method),
-                                     method_getTypeEncoding(method));
+        BOOL __unused added = class_addMethod(newClass,
+                                              method_getName(method),
+                                              method_getImplementation(method),
+                                              method_getTypeEncoding(method));
         NSCAssert(added, @"Method should be added successfully");
     }
     free(methods);

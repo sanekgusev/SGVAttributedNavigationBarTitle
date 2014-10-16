@@ -29,7 +29,7 @@ modifiedWithSuffix:(NSString *)suffix
     NSCParameterAssert(class);
     NSCParameterAssert(suffix);
     if (!class || !suffix) {
-        return nil;
+        return NO;
     }
     NSString *className = @(class_getName(class));
     NSUInteger suffixPosition = [className rangeOfString:suffix].location;

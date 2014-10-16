@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SGVViewController : UIViewController
+@interface SGVViewController : UITableViewController
 
 @end

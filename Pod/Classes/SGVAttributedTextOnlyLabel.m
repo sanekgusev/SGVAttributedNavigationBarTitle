@@ -45,14 +45,13 @@ static void const * const kLineBreakModeKey = &kLineBreakModeKey;
     CGFloat halfDiff = widthDiff / 2.0f;
     frame.origin.x -= halfDiff;
     frame.size.width += widthDiff;
+    CGFloat superviewHeight = CGRectGetHeight(self.superview.frame);
+    CGFloat desiredHeight = sizeThatFits.height;
+    if (desiredHeight > superviewHeight || CGRectGetHeight(frame) > superviewHeight) {
+        frame.origin.y = (superviewHeight - desiredHeight) / 2.0f;
+        frame.size.height = desiredHeight;
+    }
     [super setFrame:CGRectIntegral(frame)];
-}
-
-- (void)setBounds:(CGRect)bounds {
-    CGSize sizeThatFits = [self sizeThatFits:bounds.size];
-    CGFloat widthDiff = sizeThatFits.width - bounds.size.width;
-    bounds.size.width += widthDiff;
-    [super setBounds:CGRectIntegral(bounds)];
 }
 
 #pragma mark - UILabel
