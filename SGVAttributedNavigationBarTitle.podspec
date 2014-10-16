@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
                        Enables use of attributed strings as navigation item titles by [ab]using the power of Objective-C runtime.
                        DESC
   s.homepage         = "https://github.com/sanekgusev/SGVAttributedNavigationBarTitle"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshots     = "https://raw.githubusercontent.com/sanekgusev/SGVAttributedNavigationBarTitle/master/screenshot.png"
   s.license          = 'MIT'
   s.author           = { "Alexander Gusev" => "sanekgusev@gmail.com" }
   s.source           = { :git => "https://github.com/sanekgusev/SGVAttributedNavigationBarTitle.git", :tag => s.version.to_s }
